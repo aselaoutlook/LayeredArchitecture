@@ -1,0 +1,74 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Contact List</h2>
+
+<div ng-app="ContactApp">
+    <div ng-controller="ContactController">
+        <div class="container">
+            <form ng-submit="submit()" name="formcontact">
+                <input type="hidden" ng-model="Contact.ContactId" name="contactid" />
+                <div class="form-group">
+                    <label for="name">Name:</label>
+                    <input type="text" name="name" ng-model="Contact.Name" class="form-control" required>
+                    <span class="text-danger" ng-show="formcontact.name.$touched && formcontact.name.$error.required">Name is Required.</span>
+                </div>
+                <div class="form-group">
+                    <label for="address">Address:</label>
+                    <input type="text" name="address" ng-model="Contact.Address" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label for="city">City:</label>
+                    <input type="text" name="city" ng-model="Contact.City" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label for="country">Country:</label>
+                    <input type="text" name="country" ng-model="Contact.Country" class="form-control">
+                </div>
+                <button type="submit" class="btn btn-default" ng-disabled="formcontact.$invalid">Submit</button>
+            </form>
+        </div>
+        <div class="row">
+            &nbsp;
+        </div>
+        <div class="container">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>Address</th>
+                        <th>City</th>
+                        <th>Country</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tr ng-repeat="contact in contacts">
+                    <td>{{contact.ContactId}}</td>
+                    <td>{{contact.Name}}</td>
+                    <td>{{contact.Address}}</td>
+                    <td>{{contact.City}}</td>
+                    <td>{{contact.Country}}</td>
+                    <td>
+                        <button type="button"
+                                class="btn btn-default btn-xs"
+                                ng-click="LoadContactById(contact.ContactId)">
+                            <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
+                        </button>
+                        <button type="button"
+                                class="btn btn-default btn-xs"
+                                ng-click="DeleteContact(contact.ContactId)">
+                            <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                        </button>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>
+
+<script src="~/Scripts/angular.min.js"></script>
+<script src="~/Scripts/App/Contacts/contacts.js"></script>
